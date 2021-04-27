@@ -4,16 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
 
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Dia implements Parcelable {
     public static final String TABLE_NAME = "diario";
     public static final String ID = BaseColumns._ID;
-    public static final String FECHA = "fecha";
     public static final String VALORACION_DIA = "valoracion_dia";
-    public static final String RESUMEN = "resumen";
+    public static final String FECHA = "fecha";
     public static final String CONTENIDO = "contenido";
     public static final String FOTO_URI = "foto_uri";
+    public static final String RESUMEN = "resumen";
     private int id;
     private Date fecha;
     private int valoracionDia;
@@ -137,5 +139,31 @@ public class Dia implements Parcelable {
 
     public void setFotoUri(String fotoUri) {
         this.fotoUri = fotoUri;
+    }
+
+    public String getFechaFormatoLocal() {
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,
+                Locale.getDefault());
+        return df.format(fecha);
+    }
+
+    public int getValoracionResumida() {
+        if (valoracionDia < 5) {
+            return 1;
+        } else if (valoracionDia >= 5 && valoracionDia < 8) {
+            return 2;
+        } else {
+            return 3;
+        }
+    }
+
+    public static int getValorRes(int valor) {
+        if (valor < 5) {
+            return 1;
+        } else if (valor >= 5 && valor < 8) {
+            return 2;
+        } else {
+            return 3;
+        }
     }
 }

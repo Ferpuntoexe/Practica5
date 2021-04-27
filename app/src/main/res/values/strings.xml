@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Practica5</string>
+    <string name="ordenar">Ordenar</string>
+    <string name="acercade">Acerca de</string>
+    <string name="valoravida">Valora vida</string>
+    <string name="mostrarentrefechas">Mostrar entre fechas</string>
+    <string name="configurar">Configurar</string>
+    <string name="rbAsc">Asc</string>
+    <string name="rbdes">Des</string>
 </resources>
