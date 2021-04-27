@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/accion_ordenar"
+        android:icon="@android:drawable/ic_menu_sort_alphabetically"
+        android:orderInCategory="101"
+        android:title="@string/ordenar"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/accion_ValoraVida"
+        android:orderInCategory="102"
+        android:title="@string/valoravida"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/accion_MostrarEntreFechas"
+        android:orderInCategory="103"
+        android:title="@string/mostrarentrefechas"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/accion_Configurar"
+        android:orderInCategory="104"
+        android:title="@string/configurar"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/accion_AcercaDe"
+        android:orderInCategory="105"
+        android:title="@string/acercade"
+        app:showAsAction="never"/>
+
+</menu>
