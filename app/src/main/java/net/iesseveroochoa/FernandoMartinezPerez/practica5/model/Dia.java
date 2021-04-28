@@ -17,13 +17,13 @@ public class Dia implements Parcelable {
     public static final String FOTO_URI = "foto_uri";
     public static final String RESUMEN = "resumen";
     private int id;
-    private Date fecha;
+    private long fecha;
     private int valoracionDia;
     private String resumen;
     private String contenido;
     private String fotoUri;
 
-    public Dia(Date fecha, int valoracionDia, String resumen, String contenido, String fotoUri) {
+    public Dia(long fecha, int valoracionDia, String resumen, String contenido, String fotoUri) {
         this.fecha = fecha;
         this.valoracionDia = valoracionDia;
         this.resumen = resumen;
@@ -31,7 +31,7 @@ public class Dia implements Parcelable {
         this.fotoUri = fotoUri;
     }
 
-    public Dia(Date fecha, int valoracionDia, String resumen, String contenido) {
+    public Dia(long fecha, int valoracionDia, String resumen, String contenido) {
         this.fecha = fecha;
         this.valoracionDia = valoracionDia;
         this.resumen = resumen;
@@ -40,6 +40,7 @@ public class Dia implements Parcelable {
     }
 
     protected Dia(Parcel in) {
+        fecha = in.readLong();
         id = in.readInt();
         valoracionDia = in.readInt();
         resumen = in.readString();
@@ -66,6 +67,7 @@ public class Dia implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.fecha);
         dest.writeInt(this.id);
         dest.writeInt(this.valoracionDia);
         dest.writeString(this.resumen);
@@ -113,7 +115,7 @@ public class Dia implements Parcelable {
         return id;
     }
 
-    public Date getFecha() {
+    public long getFecha() {
         return fecha;
     }
 
@@ -121,7 +123,7 @@ public class Dia implements Parcelable {
         this.id = id;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(long fecha) {
         this.fecha = fecha;
     }
 

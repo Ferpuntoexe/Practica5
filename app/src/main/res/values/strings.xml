@@ -7,4 +7,21 @@
     <string name="configurar">Configurar</string>
     <string name="rbAsc">Asc</string>
     <string name="rbdes">Des</string>
+    <string name="title_activity_edicion_dia_activty">EdicionDiaActivty</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="fecha">Fecha</string>
+    <string name="valoratuvida">Valora tu vida</string>
+    <string name="Valorinicaial">5</string>
+    <string name="resumen">Resumen</string>
+    <string name="hintcuenta">Cuenta a tu diario tu día</string>
+    <string name="vacio"></string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="noCompleto">No todos los datos estan completos</string>
 </resources>
