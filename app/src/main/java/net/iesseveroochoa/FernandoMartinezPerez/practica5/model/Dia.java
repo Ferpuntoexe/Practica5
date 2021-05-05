@@ -4,9 +4,19 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+@Entity(tableName = Dia.TABLE_NAME,
+        indices = {@Index(value = {Dia.FECHA}, unique = true)})
 
 public class Dia implements Parcelable {
     public static final String TABLE_NAME = "diario";
@@ -16,14 +26,20 @@ public class Dia implements Parcelable {
     public static final String CONTENIDO = "contenido";
     public static final String FOTO_URI = "foto_uri";
     public static final String RESUMEN = "resumen";
+
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = ID)
     private int id;
-    private long fecha;
+
+    private Date fecha;
     private int valoracionDia;
     private String resumen;
     private String contenido;
     private String fotoUri;
 
-    public Dia(long fecha, int valoracionDia, String resumen, String contenido, String fotoUri) {
+    @Ignore
+    public Dia(@NonNull Date fecha, int valoracionDia, @NonNull String resumen, @NonNull String contenido, String fotoUri) {
         this.fecha = fecha;
         this.valoracionDia = valoracionDia;
         this.resumen = resumen;
@@ -31,7 +47,7 @@ public class Dia implements Parcelable {
         this.fotoUri = fotoUri;
     }
 
-    public Dia(long fecha, int valoracionDia, String resumen, String contenido) {
+    public Dia(@NonNull Date fecha, int valoracionDia, @NonNull String resumen, @NonNull String contenido) {
         this.fecha = fecha;
         this.valoracionDia = valoracionDia;
         this.resumen = resumen;
@@ -40,8 +56,9 @@ public class Dia implements Parcelable {
     }
 
     protected Dia(Parcel in) {
-        fecha = in.readLong();
         id = in.readInt();
+        long tmpFecha = in.readLong();
+        fecha = tmpFecha != -1 ? new Date(tmpFecha) : null;
         valoracionDia = in.readInt();
         resumen = in.readString();
         contenido = in.readString();
@@ -67,12 +84,12 @@ public class Dia implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.fecha);
-        dest.writeInt(this.id);
-        dest.writeInt(this.valoracionDia);
-        dest.writeString(this.resumen);
-        dest.writeString(this.contenido);
-        dest.writeString(this.fotoUri);
+        dest.writeInt(id);
+        dest.writeLong(fecha != null ? fecha.getTime() : -1L);
+        dest.writeInt(valoracionDia);
+        dest.writeString(resumen);
+        dest.writeString(contenido);
+        dest.writeString(fotoUri);
     }
 
     public static String getTableName() {
@@ -87,8 +104,8 @@ public class Dia implements Parcelable {
         return FECHA;
     }
 
-    public static String getValoracionDia() {
-        return VALORACION_DIA;
+    public int getValoracionDia() {
+        return valoracionDia;
     }
 
     public String getResumen() {
@@ -115,7 +132,7 @@ public class Dia implements Parcelable {
         return id;
     }
 
-    public long getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
@@ -123,7 +140,7 @@ public class Dia implements Parcelable {
         this.id = id;
     }
 
-    public void setFecha(long fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

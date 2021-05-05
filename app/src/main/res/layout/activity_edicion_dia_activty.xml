@@ -37,14 +37,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/etResumenDia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="4dp"
         android:ems="10"
+        android:hint="@string/resumen"
         android:inputType="textPersonName"
-        android:text="@string/resumen"
+        android:text="@string/vacio"
         app:layout_constraintStart_toEndOf="@+id/ibCalendario"
         app:layout_constraintTop_toTopOf="parent" />
 

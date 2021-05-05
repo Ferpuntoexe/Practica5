@@ -27,10 +27,9 @@ import java.util.Date;
 public class EdicionDiaActivty extends AppCompatActivity {
     public final static String EXTRA_DIA = "Activity.dia";
 
-    public static final int OPTION_REQUEST_CREAR = 1;
-    public static final int OPTION_REQUEST_EDITAR = 2;
-    Calendar calendar = Calendar.getInstance();
 
+    Calendar calendar = Calendar.getInstance();
+    Dia diaAnt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,51 +39,65 @@ public class EdicionDiaActivty extends AppCompatActivity {
 
         Intent intent = new Intent();
         TextView tvFecha = findViewById(R.id.tvFecha);
-        TextView tvResumen = findViewById(R.id.tvResumen);
+        EditText etResumenDia = findViewById(R.id.etResumenDia);
         SeekBar sbValoracion = findViewById(R.id.SBValoracion);
         FloatingActionButton fabGuardar = findViewById(R.id.fabGuardar);
         TextView tvValor = findViewById(R.id.tvValor);
         EditText etmDescripcion = findViewById(R.id.etmDescripcion);
+        diaAnt = getIntent().getParcelableExtra(EXTRA_DIA);
+        int maxValoracion = 10;
+
+        sbValoracion.setMax(maxValoracion);
+        if (diaAnt != null){
+            etResumenDia.setText(diaAnt.getResumen().toString());
+            sbValoracion.setProgress(diaAnt.getValoracionDia());
+            tvValor.setText(String.valueOf(diaAnt.getValoracionDia()));
+            tvFecha.setText(diaAnt.getFecha().toString());
+            etmDescripcion.setText(diaAnt.getContenido());
+
+        } else {
+
+            sbValoracion.setProgress(maxValoracion / 2);
+            String valoracion = String.valueOf(maxValoracion / 2);
+            tvValor.setText(valoracion);
+        }
+
+
 
         fabGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 boolean todoCompleto = true;
                 long fecha = 0;
-                if (tvFecha.equals(R.string.fecha)) {
+                if (tvFecha.getText().toString().equals(R.string.fecha)) {
                     todoCompleto = false;
-                } else {
-                    fecha = Long.parseLong(tvFecha.getText().toString());
                 }
                 String resumen = "";
-                if (tvResumen.equals("")) {
+                if (etResumenDia.getText().toString().equals("")) {
                     todoCompleto = false;
                 } else {
-                    resumen = tvResumen.getText().toString();
+                    resumen = etResumenDia.getText().toString();
                 }
                 String descripcion = "";
-                if (etmDescripcion.equals("")) {
+                if (etmDescripcion.getText().toString().equals("")) {
                     todoCompleto = false;
                 } else {
                     descripcion = etmDescripcion.getText().toString();
                 }
 
-                if (todoCompleto = true) {
-                    Dia dia = new Dia(fecha, sbValoracion.getProgress(), resumen, descripcion);
+                if (todoCompleto == true) {
+                    Dia dia = new Dia(calendar.getTime(), sbValoracion.getProgress(), resumen, descripcion);
                     intent.putExtra(EXTRA_DIA, dia);
                     setResult(Activity.RESULT_OK, intent);
-                } else if (todoCompleto = false) {
+                    finish();
+                } else {
                     Snackbar.make(view, String.valueOf(R.string.noCompleto), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
 
         });
-        int maxValoracion = 10;
-        sbValoracion.setMax(maxValoracion);
-        sbValoracion.setProgress(maxValoracion / 2);
-        String valoracion = String.valueOf(maxValoracion / 2);
-        tvValor.setText(valoracion);
+
         sbValoracion.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

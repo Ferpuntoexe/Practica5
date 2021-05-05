@@ -24,4 +24,5 @@
     <string name="vacio"></string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="noCompleto">No todos los datos estan completos</string>
+    <string name="prueba">Prueba</string>
 </resources>

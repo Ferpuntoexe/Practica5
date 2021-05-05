@@ -9,19 +9,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.iesseveroochoa.FernandoMartinezPerez.practica5.model.Dia;
 import net.iesseveroochoa.FernandoMartinezPerez.practica5.model.DiaViewModel;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
     public static final int OPTION_REQUEST_CREAR = 1;
     public static final int OPTION_REQUEST_EDITAR = 2;
+
     private DiaViewModel diaViewModel;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it ispresent.
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -42,6 +46,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, OPTION_REQUEST_CREAR);
             }
         });
+
+        Button btPrueba = findViewById(R.id.btPrueba);
+        btPrueba.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, EdicionDiaActivty.class);
+
+                Dia dia = new Dia(Calendar.getInstance().getTime(),9,"res","contsrhaerhae\nefwsef");
+
+                intent.putExtra(EdicionDiaActivty.EXTRA_DIA,dia);
+                startActivityForResult(intent, OPTION_REQUEST_EDITAR);
+            }
+        });
     }
 
     @Override
@@ -52,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == OPTION_REQUEST_CREAR) {
             Dia dia = data.getParcelableExtra(EdicionDiaActivty.EXTRA_DIA);
-            diaViewModel.addDia(dia);
+            //diaViewModel.addDia(dia);
 
 
             } else if (requestCode == OPTION_REQUEST_EDITAR) {
